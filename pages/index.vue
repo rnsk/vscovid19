@@ -9,7 +9,7 @@
       sm8
       md6
     >
-      <cover class="mb-2" />
+      <cover class="my-2" />
       <v-card>
         <v-card-title class="headline">
           Welcome to the Vuetify + Nuxt.js template
