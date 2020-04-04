@@ -24,6 +24,7 @@ import DataCard from '@/components/DataCard.vue'
 import SearchButton from '@/components/SearchButton.vue'
 import SearchForm from '@/components/SearchForm.vue'
 import SearchMap from '@/components/SearchMap.vue'
+import sheetApi from '@/api/sheet'
 
 export default {
   components: {
@@ -32,6 +33,19 @@ export default {
     SearchButton,
     SearchForm,
     SearchMap
+  },
+  data () {
+    return {
+      searchData: []
+    }
+  },
+  created () {
+    this.getSearchData()
+  },
+  methods: {
+    async getSearchData () {
+      this.searchData = await sheetApi.getData()
+    }
   }
 }
 </script>
