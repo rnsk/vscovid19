@@ -1,24 +1,16 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <cover class="my-2" />
-      <search-form />
-      <search-map />
-      <search-button />
-      <data-card />
-    </v-flex>
-  </v-layout>
+  <div class="MainPage">
+    <cover class="my-2" />
+    <page-header :icon="headerItem.icon" :title="headerItem.title" />
+    <search-form />
+    <search-map />
+    <search-button />
+    <data-card />
+  </div>
 </template>
 
 <script>
+import PageHeader from '@/components/PageHeader.vue'
 import Cover from '@/components/Cover.vue'
 import DataCard from '@/components/DataCard.vue'
 import SearchButton from '@/components/SearchButton.vue'
@@ -28,6 +20,7 @@ import sheetApi from '@/api/sheet'
 
 export default {
   components: {
+    PageHeader,
     Cover,
     DataCard,
     SearchButton,
@@ -36,7 +29,11 @@ export default {
   },
   data () {
     return {
-      searchData: []
+      searchData: [],
+      headerItem: {
+        icon: 'mdi-magnify',
+        title: 'サービスを探す'
+      }
     }
   },
   created () {
