@@ -5,7 +5,7 @@
     <search-form />
     <search-map />
     <search-button />
-    <data-card />
+    <data-card :items="searchData" />
   </div>
 </template>
 
