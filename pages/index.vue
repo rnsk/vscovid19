@@ -8,7 +8,7 @@
         <search-button @filterData="onIndustryFilter" :items="buttonItems" />
       </v-col>
       <v-col cols="12" md="6">
-        <search-map />
+        <search-map @filterData="onRegionFilter" />
       </v-col>
     </v-row>
     <data-card :items="filteredItems" />
@@ -41,7 +41,8 @@ export default {
       },
       searchTerms: {
         keyword: '',
-        industry: ''
+        industry: '',
+        region: ''
       },
       searchItems: [],
       buttonItems: []
@@ -70,6 +71,9 @@ export default {
         if (item.分野 === this.searchTerms.industry) {
           filtered.push(item)
         }
+        if (~item.対象地域.toLowerCase().indexOf(this.searchTerms.region)) {
+          filtered.push(item)
+        }
       }
       return filtered
     },
@@ -78,6 +82,9 @@ export default {
     },
     onIndustryFilter ({ results }) {
       this.searchTerms.industry = results
+    },
+    onRegionFilter ({ results }) {
+      this.searchTerms.region = results
     }
   }
 }
