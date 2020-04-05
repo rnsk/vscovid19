@@ -67,19 +67,27 @@ export default {
       this.isLoading = false
     },
     filterData () {
-      const filtered = []
-      for (const i in this.searchItems) {
-        const item = this.searchItems[i]
-        if (~item.名称.toLowerCase().indexOf(this.searchTerms.keyword)) {
-          filtered.push(item)
-        }
-        if (item.分野 === this.searchTerms.industry) {
-          filtered.push(item)
-        }
-        if (~item.対象地域.toLowerCase().indexOf(this.searchTerms.region)) {
-          filtered.push(item)
-        }
+      let filtered = []
+      const searchTerms = this.searchTerms
+      // キーワード
+      if (searchTerms.keyword !== '') {
+        filtered = this.searchItems.filter(function (row) {
+          return row['名称'].toLowerCase().includes(searchTerms.keyword)
+        })
       }
+      // 分野
+      if (searchTerms.industry !== '') {
+        filtered = this.searchItems.filter(function (row) {
+          return row['分野'] === searchTerms.industry
+        })
+      }
+      // 地域
+      if (searchTerms.region !== '') {
+        filtered = this.searchItems.filter(function (row) {
+          return row['対象地域'].toLowerCase().includes(searchTerms.region)
+        })
+      }
+
       return filtered
     },
     onKeywordFilter ({ results }) {
