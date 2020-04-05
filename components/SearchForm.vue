@@ -3,7 +3,7 @@
     <page-sub-header :icon="headerItem.icon" :title="headerItem.title" />
     <v-text-field
       v-model="keyword"
-      label="検索ワード"
+      label="検索ワードを入力"
       clearable
       @keyup="inputKeyword"
       @click:clear="clearKeyword"
@@ -22,7 +22,7 @@ export default {
     return {
       headerItem: {
         icon: 'mdi-format-text',
-        title: 'キーワードから探す'
+        title: 'キーワードで探す'
       },
       keyword: ''
     }

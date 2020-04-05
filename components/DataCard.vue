@@ -27,11 +27,11 @@
         <v-chip-group
           column
         >
-          <v-chip color="black" text-color="white">{{ item.対象者 }}</v-chip>
-          <v-chip color="blue" text-color="white">{{ item.対象地域 }}</v-chip>
-          <v-chip color="red" text-color="white">{{ item.分類 }}</v-chip>
-          <v-chip color="orange" text-color="white">{{ item.費用 }}</v-chip>
-          <v-chip v-if="item.導入支援=='有'" color="green" text-color="white">導入支援</v-chip>
+          <v-chip color="black" class="white--text font-weight-bold">{{ item.対象者 }}</v-chip>
+          <v-chip color="blue" class="white--text font-weight-bold">{{ item.対象地域 }}</v-chip>
+          <v-chip color="red" class="white--text font-weight-bold">{{ item.分類 }}</v-chip>
+          <v-chip color="orange" class="white--text font-weight-bold">{{ item.費用 }}</v-chip>
+          <v-chip v-if="item.導入支援=='有'" color="green" class="white--text font-weight-bold">導入支援</v-chip>
         </v-chip-group>
         <v-row>
           <v-col cols="12" md="6">

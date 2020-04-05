@@ -6,8 +6,7 @@
         <v-col
           v-for="(item, i) in items"
           :key="i"
-          cols="12"
-          sm="6"
+          cols="6"
           class="pa-1"
         >
           <v-btn
@@ -44,7 +43,7 @@ export default {
     return {
       headerItem: {
         icon: 'mdi-city',
-        title: '分野から探す'
+        title: '分野で探す'
       },
       industry: ''
     }
