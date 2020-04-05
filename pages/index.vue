@@ -2,10 +2,16 @@
   <div class="MainPage">
     <cover class="my-2" />
     <page-header :icon="headerItem.icon" :title="headerItem.title" />
-    <search-form />
-    <search-map />
-    <search-button />
-    <data-card :items="searchData" />
+    <v-row class="mb-3">
+      <v-col cols="12" md="6">
+        <search-form @filterData="onFilterData" />
+        <search-button />
+      </v-col>
+      <v-col cols="12" md="6">
+        <search-map />
+      </v-col>
+    </v-row>
+    <data-card :items="filteredItems" />
   </div>
 </template>
 
@@ -29,19 +35,38 @@ export default {
   },
   data () {
     return {
-      searchData: [],
       headerItem: {
         icon: 'mdi-magnify',
         title: 'サービスを探す'
-      }
+      },
+      keyword: '',
+      searchItems: []
     }
   },
-  created () {
+  computed: {
+    filteredItems () {
+      return this.filterData()
+    }
+  },
+  mounted () {
     this.getSearchData()
   },
   methods: {
     async getSearchData () {
-      this.searchData = await sheetApi.getData()
+      this.searchItems = await sheetApi.getData()
+    },
+    filterData () {
+      const filtered = []
+      for (const i in this.searchItems) {
+        const item = this.searchItems[i]
+        if (~item.名称.toLowerCase().indexOf(this.keyword)) {
+          filtered.push(item)
+        }
+      }
+      return filtered
+    },
+    onFilterData ({ results }) {
+      this.keyword = results
     }
   }
 }
