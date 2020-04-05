@@ -4,8 +4,8 @@
     <page-header :icon="headerItem.icon" :title="headerItem.title" />
     <v-row class="mb-3">
       <v-col cols="12" md="6">
-        <search-form @filterData="onFilterData" />
-        <search-button />
+        <search-form @filterData="onKeywordFilter" />
+        <search-button @filterData="onIndustryFilter" :items="buttonItems" />
       </v-col>
       <v-col cols="12" md="6">
         <search-map />
@@ -39,8 +39,12 @@ export default {
         icon: 'mdi-magnify',
         title: 'サービスを探す'
       },
-      keyword: '',
-      searchItems: []
+      searchTerms: {
+        keyword: '',
+        industry: ''
+      },
+      searchItems: [],
+      buttonItems: []
     }
   },
   computed: {
@@ -49,24 +53,31 @@ export default {
     }
   },
   mounted () {
-    this.getSearchData()
+    this.getData()
   },
   methods: {
-    async getSearchData () {
+    async getData () {
       this.searchItems = await sheetApi.getData()
+      this.buttonItems = await sheetApi.getButtons()
     },
     filterData () {
       const filtered = []
       for (const i in this.searchItems) {
         const item = this.searchItems[i]
-        if (~item.名称.toLowerCase().indexOf(this.keyword)) {
+        if (~item.名称.toLowerCase().indexOf(this.searchTerms.keyword)) {
+          filtered.push(item)
+        }
+        if (item.分野 === this.searchTerms.industry) {
           filtered.push(item)
         }
       }
       return filtered
     },
-    onFilterData ({ results }) {
-      this.keyword = results
+    onKeywordFilter ({ results }) {
+      this.searchTerms.keyword = results
+    },
+    onIndustryFilter ({ results }) {
+      this.searchTerms.industry = results
     }
   }
 }

@@ -33,6 +33,23 @@ class SheetApi {
       })
       .catch(e => ({ error: e }))
   }
+
+  getButtons () {
+    return axios.get(`${this.apiBase}/1O5hfDv0hmbMQtq8T4102HPkEUs24NQKp6Ps0Y4IVpHI/2/public/values?alt=json`)
+      .then((res) => {
+        const items = []
+        const values = Object.values(res.data.feed.entry)
+        values.forEach((value) => {
+          const item = {
+            name: value.gsx$name.$t,
+            color: value.gsx$color.$t
+          }
+          items.push(item)
+        })
+        return items
+      })
+      .catch(e => ({ error: e }))
+  }
 }
 
 const sheetApi = new SheetApi()
