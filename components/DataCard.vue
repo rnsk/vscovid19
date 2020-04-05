@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-card v-for="(item, i) in items" :key="i">
+  <div>
+    <v-card v-for="(item, i) in items" :key="i" class="mb-3">
       <v-row>
         <v-col cols="12" sm="6">
           <v-list-item three-line>
@@ -48,7 +48,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-  </v-layout>
+  </div>
 </template>
 
 <script>

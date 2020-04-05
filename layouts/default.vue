@@ -6,7 +6,6 @@
       </v-container>
     </v-content>
     <v-footer
-      app
       color="transparent"
       padless
       class="font-weight-light text--secondary caption"
