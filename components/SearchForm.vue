@@ -1,9 +1,9 @@
 <template>
   <div>
+    <page-sub-header :icon="headerItem.icon" :title="headerItem.title" />
     <v-text-field
       v-model="keyword"
       label="検索ワード"
-      prepend-icon="mdi-format-text"
       clearable
       @keyup="inputKeyword"
       @click:clear="clearKeyword"
@@ -12,9 +12,18 @@
 </template>
 
 <script>
+import PageSubHeader from '@/components/PageSubHeader.vue'
+
 export default {
+  components: {
+    PageSubHeader
+  },
   data () {
     return {
+      headerItem: {
+        icon: 'mdi-format-text',
+        title: 'キーワードから探す'
+      },
       keyword: ''
     }
   },
