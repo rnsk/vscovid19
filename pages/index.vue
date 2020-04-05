@@ -5,17 +5,19 @@
     <v-row class="mb-3">
       <v-col cols="12" md="6">
         <search-form @filterData="onKeywordFilter" />
-        <search-button @filterData="onIndustryFilter" :items="buttonItems" />
+        <search-button :items="buttonItems" @filterData="onIndustryFilter" />
       </v-col>
       <v-col cols="12" md="6">
         <search-map @filterData="onRegionFilter" />
       </v-col>
     </v-row>
-    <data-card :items="filteredItems" />
+    <data-card v-if="filteredItems" :items="filteredItems" />
+    <pulse-loader :loading="isLoading" color="#808080" />
   </div>
 </template>
 
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import Cover from '@/components/Cover.vue'
 import DataCard from '@/components/DataCard.vue'
@@ -26,6 +28,7 @@ import sheetApi from '@/api/sheet'
 
 export default {
   components: {
+    PulseLoader,
     PageHeader,
     Cover,
     DataCard,
@@ -45,7 +48,8 @@ export default {
         region: ''
       },
       searchItems: [],
-      buttonItems: []
+      buttonItems: [],
+      isLoading: true
     }
   },
   computed: {
@@ -60,6 +64,7 @@ export default {
     async getData () {
       this.searchItems = await sheetApi.getData()
       this.buttonItems = await sheetApi.getButtons()
+      this.isLoading = false
     },
     filterData () {
       const filtered = []
